@@ -1,6 +1,12 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Notes:
+// SplitScreen code that doesn't work: https://github.com/mjcguada/DynamicSplitScreenURP/blob/main/Assets/Scripts/SplitScreen.cs
+// which was referenced from https://github.com/sebheron/Dynamic-Splitscreen / https://discussions.unity.com/t/released-open-source-dynamic-splitscreen/665236
+// alternative: https://github.com/mkskelet/unity-dynamic-split / https://marekkost.com/2020/07/08/unity-dynamic-split/
+// asset: https://assetstore.unity.com/packages/tools/camera/adaptive-split-screen-223436
+
 namespace ShareDevice
 {
     /// <summary> Minimal functionality to show reaction to Vector2 based OnMove from PlayerInput. </summary>
@@ -29,6 +35,8 @@ namespace ShareDevice
         /// This action is expected to contain a Vector2 payload. </summary>
         private InputAction moveActionForPlayer;
 
+        // private static InputDevice userDevice;
+
         private void Start()
         {
             var playerInput = this.GetComponent<PlayerInput>();
@@ -39,6 +47,17 @@ namespace ShareDevice
                 Debug.LogWarning($"Move Action using action asset '{moveAction.action.actionMap.ToString()}' may be incorrect due to PlayerInput using '{playerInput.currentActionMap.ToString()}'. ");
             }
             moveActionForPlayer = playerInput.actions[moveAction.action.id.ToString()];
+
+            // HACK: use first playerinput to setup another playerinput for the same device
+            //if (playerInput.currentControlScheme == null)
+            //{
+            //    playerInput.SwitchCurrentControlScheme(playerInput.defaultControlScheme, userDevice);
+            //    var oigh = UnityEngine.InputSystem.Users.InputUser.GetUnpairedInputDevices();
+            //}
+            //else
+            //{
+            //    userDevice = playerInput.GetDevice<InputDevice>();
+            //}
 
             // give each player a color consistent with their part of the device
             var playerName = playerInput.currentControlScheme + playerInput.GetDevice<InputDevice>().deviceId;

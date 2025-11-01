@@ -42,9 +42,12 @@ sysinfo.txt
 
 # Generate by UPM
 /Assets/ShareDevice/*
+/Packages/ShareDevice/*
+/Assets/Samples*
 /Assets/TextMesh Pro/*
 /Assets/Readme.asset*
 /Assets/TutorialInfo*
+/Packages/com.projectdawn.splitscreen/*
 
 # Custom
 DontCommit*
